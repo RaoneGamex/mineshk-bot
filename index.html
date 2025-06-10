@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mines Grid</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background: #0099cc;
+      border-radius: 10px;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #00bcd4;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid" id="grid"></div>
+  <div class="controls">
+    <button class="btn" onclick="changeMines(-1)">-</button>
+    <span id="mineCount">3</span>
+    <button class="btn" onclick="changeMines(1)">+</button>
+  </div>
+  <button class="btn" onclick="getSignal()">GET SIGNAL</button>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const mineCountText = document.getElementById('mineCount');
+    let mineCount = 3;
+
+    function createGrid() {
+      grid.innerHTML = '';
+      for (let i = 0; i < 25; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        grid.appendChild(cell);
+      }
+    }
+
+    function changeMines(change) {
+      mineCount = Math.max(1, Math.min(24, mineCount + change));
+      mineCountText.textContent = mineCount;
+    }
+
+    function getSignal() {
+      alert('Signal requested!'); // yaha baad me backend API call aayegi
+    }
+
+    createGrid();
+  </script>
+</body>
+</html>
